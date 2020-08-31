@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CollectionsMasterConsoleUI
 {
@@ -51,6 +52,26 @@ namespace CollectionsMasterConsoleUI
             Console.WriteLine("\n************End Arrays*************** \n");
             #endregion
 
+            int[] numbers = new int[50];
+            Populater(numbers);
+
+            //Print the first number of the array
+            Console.WriteLine($"\nIndex 0:{numbers[0]}\n......");
+
+            //Print the last number of the array
+            Console.WriteLine($"\n Last index: {numbers[^1]}\n.....");
+
+            Console.WriteLine("All numbers are original:");
+            NumberPrinter(numbers);
+
+            Console.WriteLine("Multiple of three = 0");
+            ThreeKiller(numbers);
+
+            Console.WriteLine("Sorted numbers:");
+            Array.Sort(numbers);
+            NumberPrinter(numbers);
+            Console.WriteLine("_____End of Array Exercise______");
+
             #region Lists
             Console.WriteLine("************Start Lists**************");
 
@@ -91,27 +112,62 @@ namespace CollectionsMasterConsoleUI
             Console.WriteLine("------------------");
 
             //Convert the list to an array and store that into a variable
-            
+
 
             //Clear the list
-            
+
 
             #endregion
+
+            List<int> numbersList = new List<int>();
+            Console.WriteLine($"List starting capacity:{numbersList.Capacity}");
+            Console.WriteLine("--------------------");
+
+            Populater(numbersList);
+
+            Console.WriteLine("What number will you search for in a number list");
+            int searchNumber = int.Parse(Console.ReadLine());
+
+            //Convert from List to an Array
+            var ArrayFromList = numbersList.ToArray();
+
+            //Clear the list
+            numbersList.Clear();
+
+
+
+
         }
 
         private static void ThreeKiller(int[] numbers)
         {
-            
+           for (int i=0; i< numbers.Length; i++)
+            {
+                if (numbers[i] % 3 == 0)
+                {
+                    numbers[i]=0;
+                }
+            }
         }
 
-        private static void OddKiller(List<int> numberList)
+        private static void OddKiller(List<int> numbersList)
         {
-            
+            for (int i=0; i<numbersList.Count; i++)
+            {
+                if (numbersList[i] % 2 == 0)
+                {
+                    numbersList.Remove(numbersList[i]);
+                }
+            }
         }
 
-        private static void NumberChecker(List<int> numberList, int searchNumber)
+        private static void NumberChecker(List<int> numbersList, int searchNumber)
         {
-            
+         if (numbersList.Contains(searchNumber))
+            {
+                Console.WriteLine("\n Number is found /n");
+            }
+            Console.WriteLine("404 Not Found");
         }
 
         private static void Populater(List<int> numberList)
@@ -123,12 +179,24 @@ namespace CollectionsMasterConsoleUI
         private static void Populater(int[] numbers)
         {
             Random rng = new Random();
+            for (int i=0; i<numbers.Length; i++)
+            {
+                int rando = rng.Next(100);
+                numbers[i] = rando;
+            }
 
         }        
 
         private static void ReverseArray(int[] array)
         {
-            
+            int temp = 0;
+            int lastIndex = array.Length - 1;
+            for (int i =0; i < array.Length / 2; i++)
+            {
+                temp = array[i];
+                array[i] = array[lastIndex - i];
+                array[lastIndex - i] = temp;
+            }
         }
 
         /// <summary>
